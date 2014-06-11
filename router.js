@@ -69,7 +69,7 @@ function router() {
     var timeout = parseDelay(req.params.delay);
 
     if (timeout === null) {
-      return res.send(400);
+      return res.json(400, { message: 'Invalid Delay' });
     }
 
     setTimeout(next, timeout);

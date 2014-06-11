@@ -1,0 +1,26 @@
+{
+  "name": "mock-turtle",
+  "version": "0.1.0",
+  "description": "Node.js server for mocking JSON APIs",
+  "author": "Ethan Zimmerman <thebinarypenguin@gmail.com> (http://thebinarypenguin.com)",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/thebinarypenguin/mock-turtle"
+  },
+  "bugs": "http://github.com/thebinarypenguin/mock-turtle/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://raw.github.com/thebinarypenguin/mock-turtle/master/LICENSE"
+    }
+  ],
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "~4.4.2",
+    "body-parser": "~1.3.0"
+  },
+  "private": true
+}

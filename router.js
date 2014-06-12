@@ -2,6 +2,11 @@ var express = require('express');
 
 function router() {
 
+  var isEmptyObject = function(obj) {
+    for (var key in obj) { if (obj.hasOwnProperty(key)) { return false; } }
+    return true;
+  };
+
   var parseDelay = function(delay) {
     var lowered = delay.toLowerCase();
     var hCount, mCount, sCount = 0;
@@ -76,7 +81,9 @@ function router() {
   };
 
   var echo = function(req, res) {
-    res.json(req.body);
+    var payload = (isEmptyObject(req.body)) ? req.query : req.body;
+
+    res.json(payload);
   };
 
 

@@ -44,6 +44,32 @@ function router() {
     return milliseconds;
   };
 
+  var parseCustomStatusCode = function(status) {
+    if (_.isUndefined(status) || _.isNull(status) || _.isArray(status) || _.isObject(status)) {
+      return null;
+    }
+
+    return status;
+  };
+
+  var parseCustomHeaders = function(headers) {
+    if (!_.isObject(headers)) {
+      return null;
+    }
+
+    var err = _.find(_.values(headers), function(v) {
+      if (_.isUndefined(v) || _.isNull(v) || _.isArray(v) || _.isObject(v)) {
+        return true;
+      }
+    })
+
+    if (err) {
+      return null;
+    }
+
+    return headers;
+  };
+
   var cors = function(req, res, next) {
     if (req.method === 'OPTIONS') {
 
@@ -76,9 +102,34 @@ function router() {
   };
 
   var echo = function(req, res) {
-    var payload = (_.isEmpty(req.body)) ? req.query : req.body;
+    var statusCode = 200;
+    var payload    = (_.isEmpty(req.body)) ? req.query : req.body;
 
-    res.json(payload);
+    // Custom Status Code
+    if (_.has(payload, "_status")) {
+      var customStatusCode = parseCustomStatusCode(payload._status);
+
+      if (customStatusCode === null) {
+        return res.json(400, { message: 'Invalid Status Code' });
+      }
+
+      statusCode = customStatusCode;
+    }
+
+    // Custom Headers
+    if (_.has(payload, "_headers")) {
+      var customHeaders = parseCustomHeaders(payload._headers);
+
+      if (customHeaders === null) {
+        return res.json(400, { message: 'Invalid Headers' });
+      }
+
+      res.header(customHeaders);
+    }
+
+    res.header('Access-Control-Expose-Headers', _.values(res._headerNames).join(", "));
+
+    res.json(statusCode, payload);
   };
 
 

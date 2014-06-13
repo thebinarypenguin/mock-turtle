@@ -16,7 +16,7 @@
   ],
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node ./src/server.js"
   },
   "dependencies": {
     "underscore": "~1.6.0",

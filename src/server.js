@@ -14,3 +14,5 @@ app.use('/', router());
 app.listen(port);
 
 console.log('mock-turtle is running on port ' + port);
+
+module.exports = app;

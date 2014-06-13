@@ -1,11 +1,7 @@
-var express = require('express');
+var _       = require('underscore'),
+    express = require('express');
 
 function router() {
-
-  var isEmptyObject = function(obj) {
-    for (var key in obj) { if (obj.hasOwnProperty(key)) { return false; } }
-    return true;
-  };
 
   var parseDelay = function(delay) {
     var lowered = delay.toLowerCase();
@@ -50,8 +46,8 @@ function router() {
 
   var cors = function(req, res, next) {
     if (req.method === 'OPTIONS') {
-      /* Preflight */
 
+      /* Preflight */
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
       if (req.headers['access-control-request-headers']) {
@@ -61,10 +57,9 @@ function router() {
       res.send(204);
 
     } else {
-      /* Simple */
 
+      /* Simple */
       res.header('Access-Control-Allow-Origin', '*');
-      // TODO Access-Control-Expose-Headers
 
       next();
     }
@@ -81,7 +76,7 @@ function router() {
   };
 
   var echo = function(req, res) {
-    var payload = (isEmptyObject(req.body)) ? req.query : req.body;
+    var payload = (_.isEmpty(req.body)) ? req.query : req.body;
 
     res.json(payload);
   };

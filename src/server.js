@@ -7,6 +7,7 @@ var port = process.env.PORT || 3000;
 
 var app = express();
 
+app.disable('etag');
 app.disable('x-powered-by');
 app.use(bodyParser());
 app.use(errorHandler());

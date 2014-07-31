@@ -1,5 +1,6 @@
 var _       = require('underscore'),
-    express = require('express');
+    express = require('express'),
+    utils   = require('./utils');
 
 function SiteRouter() {
 
@@ -95,7 +96,7 @@ function SiteRouter() {
     var timeout = parseDelay(req.params.delay);
 
     if (timeout === null) {
-      return res.json(400, { message: 'Invalid Delay' });
+      return res.send(400, utils.formatJSON({ message: 'Invalid Delay' }));
     }
 
     setTimeout(next, timeout);
@@ -110,7 +111,7 @@ function SiteRouter() {
       var customStatusCode = parseCustomStatusCode(payload._status);
 
       if (customStatusCode === null) {
-        return res.json(400, { message: 'Invalid Status Code' });
+        return res.send(400, utils.formatJSON({ message: 'Invalid Status Code' }));
       }
 
       statusCode = customStatusCode;
@@ -121,15 +122,16 @@ function SiteRouter() {
       var customHeaders = parseCustomHeaders(payload._headers);
 
       if (customHeaders === null) {
-        return res.json(400, { message: 'Invalid Headers' });
+        return res.send(400, utils.formatJSON({ message: 'Invalid Headers' }));
       }
 
       res.header(customHeaders);
     }
 
     res.header('Access-Control-Expose-Headers', _.values(res._headerNames).join(", "));
+    res.header('Content-Type', 'application/json');
 
-    res.json(statusCode, payload);
+    res.send(statusCode, utils.formatJSON(payload));
   };
 
   var router = express.Router();

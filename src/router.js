@@ -1,7 +1,7 @@
 var _       = require('underscore'),
     express = require('express');
 
-function router() {
+function SiteRouter() {
 
   var parseDelay = function(delay) {
     var lowered = delay.toLowerCase();
@@ -132,14 +132,13 @@ function router() {
     res.json(statusCode, payload);
   };
 
+  var router = express.Router();
 
-  var siteRouter = express.Router();
+  router.all('*', cors);
+  router.all('/:delay', delay, echo);
+  router.all('/', echo);
 
-  siteRouter.all('*', cors);
-  siteRouter.all('/:delay', delay, echo);
-  siteRouter.all('/', echo);
-
-  return siteRouter;
+  return router;
 }
 
-module.exports = router;
+module.exports = new SiteRouter();

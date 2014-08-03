@@ -126,8 +126,10 @@ describe('Invalid Delay', function() {
     request(server).get('/foo').expect('Content-Type', /application\/json/, done);
   });
 
-  it('Response body should be an error', function(done) {
-    false.should.be.true
+  it('Response body should be an error message', function(done) {
+    request(server).get('/foo').expect(function(res) {
+      if (!res.body.message) { throw new Error('Missing error message'); }
+    }).end(done);
   });
 });
 
@@ -142,8 +144,10 @@ describe('Invalid Status Code', function() {
     request(server).post('/').type('json').send(input).expect('Content-Type', /application\/json/, done);
   });
 
-  it('Response body should be an error', function(done) {
-    false.should.be.true
+  it('Response body should be an error message', function(done) {
+    request(server).post('/').type('json').send(input).expect(function(res) {
+      if (!res.body.message) { throw new Error('Missing error message'); }
+    }).end(done);
   });
 });
 
@@ -158,8 +162,10 @@ describe('Invalid Headers', function() {
     request(server).post('/').type('json').send(input).expect('Content-Type', /application\/json/, done);
   });
 
-  it('Response body should be an error', function(done) {
-    false.should.be.true
+  it('Response body should be an error message', function(done) {
+    request(server).post('/').type('json').send(input).expect(function(res) {
+      if (!res.body.message) { throw new Error('Missing error message'); }
+    }).end(done);
   });
 });
 
@@ -174,8 +180,10 @@ describe('Invalid Body', function() {
     request(server).post('/').type('json').send(input).expect('Content-Type', /application\/json/, done);
   });
 
-  it('Response body should be an error', function(done) {
-    false.should.be.true
+  it('Response body should be an error message', function(done) {
+    request(server).post('/').type('json').send(input).expect(function(res) {
+      if (!res.body.message) { throw new Error('Missing error message'); }
+    }).end(done);
   });
 });
 

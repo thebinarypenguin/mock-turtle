@@ -29,7 +29,9 @@ function SiteRouter() {
     var timeout = utils.parseDelay(req.params.delay);
 
     if (timeout === null) {
-      return res.send(400, utils.formatJSON({ message: 'Invalid Delay' }));
+      res.header('Content-Type', 'application/json');
+      res.send(400, utils.formatJSON({ message: 'Invalid Delay' }));
+      return;
     }
 
     setTimeout(next, timeout);
@@ -44,7 +46,9 @@ function SiteRouter() {
       var customStatusCode = utils.parseCustomStatusCode(payload._status);
 
       if (customStatusCode === null) {
-        return res.send(400, utils.formatJSON({ message: 'Invalid Status Code' }));
+        res.header('Content-Type', 'application/json');
+        res.send(400, utils.formatJSON({ message: 'Invalid Status Code' }));
+        return;
       }
 
       statusCode = customStatusCode;
@@ -55,7 +59,9 @@ function SiteRouter() {
       var customHeaders = utils.parseCustomHeaders(payload._headers);
 
       if (customHeaders === null) {
-        return res.send(400, utils.formatJSON({ message: 'Invalid Headers' }));
+        res.header('Content-Type', 'application/json');
+        res.send(400, utils.formatJSON({ message: 'Invalid Headers' }));
+        return;
       }
 
       res.header(customHeaders);

@@ -1,13 +1,22 @@
 var _ = require('underscore');
 
 exports.errorHandler = function(err, req, res, next) {
+  var code, body;
 
   // If the bodyParser middleware chokes on bad JSON it
   // will add a status property to the err object with a 4xx error code
 
-  var code = err.status || 500;
+  if (err.status) {
+    code = 400;
+    body = { message: "Bad Request" }
+  } else {
+    code = 500;
+    body = { message: "Internal Server Error" }
+  }
 
-  res.send(code, exports.formatJSON(err));
+  res.header('Content-Type', 'application/json');
+
+  res.send(code, exports.formatJSON(body));
 
   // next(err);
 };

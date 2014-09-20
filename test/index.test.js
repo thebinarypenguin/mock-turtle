@@ -70,7 +70,7 @@ describe('Root Route', function() {
 });
 
 describe('Delay Route', function() {
-  this.timeout(0);
+  this.timeout(4000);
 
   it('Response code should be 200 OK', function(done) {
     request(server).get('/3s').expect(200, done);
@@ -80,8 +80,19 @@ describe('Delay Route', function() {
     request(server).get('/3s').expect('Content-Type', /application\/json/, done);
   });
 
-  it('Should take a little while', function(done) {
-    false.should.be.true
+  it('Should take at least 3 seconds', function(done) {
+    var time = process.hrtime();
+
+    request(server).get('/3s').end(function(err, res){
+      if (err) { return done(err); }
+
+      time = process.hrtime(time);
+      if (time[0] < 3) {
+        return done(new Error('Response was not delayed'));
+      }
+
+      done()
+    });
   });
 });
 

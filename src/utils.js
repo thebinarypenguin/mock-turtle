@@ -20,6 +20,10 @@ exports.formatJSON = function(obj) {
 };
 
 exports.parseDelay = function(delay) {
+  if (!delay || !_.isFunction(delay.toLowerCase)) {
+    return null;
+  }
+
   var lowered = delay.toLowerCase();
   var hCount, mCount, sCount = 0;
   var pieces = null;
@@ -43,7 +47,7 @@ exports.parseDelay = function(delay) {
   }
 
   // Parse delay into pieces
-  pieces = /^([0-9]+[h|m|s])?([0-9]+[h|m|s])?([0-9]+[h|m|s])?$/.exec(lowered);
+  pieces = /^([0-9]+[h])?([0-9]+[m])?([0-9]+[s])?$/.exec(lowered);
   if (pieces === null) {
     return null;
   }
@@ -61,15 +65,21 @@ exports.parseDelay = function(delay) {
 };
 
 exports.parseCustomStatusCode = function(status) {
-  if (_.isUndefined(status) || _.isNull(status) || _.isArray(status) || _.isObject(status)) {
+  if (!status || !_.isFunction(status.toString)) {
     return null;
   }
 
-  return status;
+  var clean = status.toString().replace(/\s/g, "");
+
+  if (/^[0-9]+$/.test(clean) === false) {
+    return null;
+  }
+
+  return clean;
 };
 
 exports.parseCustomHeaders = function(headers) {
-  if (!_.isObject(headers)) {
+  if (!_.isObject(headers) || _.isEmpty(headers)) {
     return null;
   }
 

@@ -2,6 +2,8 @@
 
 An easy to use echo server for mocking JSON APIs.
 
+[![Build Status](https://travis-ci.org/thebinarypenguin/mock-turtle.svg?branch=master)](https://travis-ci.org/thebinarypenguin/mock-turtle)
+
 ## Features
 
 * Easily specify

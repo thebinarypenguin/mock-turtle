@@ -30,7 +30,6 @@
     "supertest": "~0.13.0",
     "grunt-mocha-cli": "~1.10.0",
     "grunt-bump": "0.0.15",
-    "grunt-shell": "~1.1.1",
     "grunt": "~0.4.5"
   },
   "engines" : {

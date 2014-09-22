@@ -18,27 +18,19 @@ module.exports = function(grunt) {
         commitFiles: ['-a'],
         pushTo: 'origin'
       }
-    },
-
-    // Publish
-    shell: {
-      publish: {
-        command : "npm publish"
-      }
     }
   });
 
   grunt.loadNpmTasks('grunt-mocha-cli');
   grunt.loadNpmTasks('grunt-bump');
-  grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('default', ['mochacli']);
   grunt.registerTask('test',    ['mochacli']);
 
-  grunt.registerTask("release", "Release a new version, push it and publish it", function(target) {
+  grunt.registerTask("release", "Release a new version and push it to GitHub", function(target) {
     if (!target) {
       target = "patch";
     }
-    return grunt.task.run("bump-only:" + target, "bump-commit", "shell:publish");
+    return grunt.task.run("bump-only:" + target, "bump-commit");
   });
 };

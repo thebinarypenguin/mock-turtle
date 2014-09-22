@@ -1,6 +1,6 @@
 {
   "name": "mock-turtle",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Node.js server for mocking JSON APIs",
   "author": "Ethan Zimmerman <thebinarypenguin@gmail.com> (http://thebinarypenguin.com)",
   "repository": {

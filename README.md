@@ -2,7 +2,7 @@
 
 An easy to use echo server for mocking JSON APIs.
 
-[![Build Status](https://travis-ci.org/thebinarypenguin/mock-turtle.svg?branch=master)](https://travis-ci.org/thebinarypenguin/mock-turtle)
+[![Build Status](https://travis-ci.org/thebinarypenguin/mock-turtle.svg?branch=master)](https://travis-ci.org/thebinarypenguin/mock-turtle) [![Greenkeeper badge](https://badges.greenkeeper.io/thebinarypenguin/mock-turtle.svg)](https://greenkeeper.io/)
 
 ## Features
 
